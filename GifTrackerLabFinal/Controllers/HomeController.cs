@@ -28,6 +28,7 @@ namespace GifTrackerLabFinal.Controllers
             
         }
 
+
         public IActionResult Privacy()
         {
             return View();
