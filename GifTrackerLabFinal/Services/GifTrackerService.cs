@@ -1,6 +1,9 @@
-﻿namespace GifTrackerLabFinal.Services
+﻿using GifTrackerLabFinal.Interfaces;
+
+
+namespace GifTrackerLabFinal.Services
 {
-    public class GifTrackerService
+    public class GifTrackerService : IGifTrackerService
     {
     }
 }
