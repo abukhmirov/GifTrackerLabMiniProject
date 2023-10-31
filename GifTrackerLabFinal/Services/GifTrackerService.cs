@@ -1,12 +1,15 @@
 ﻿using GifTrackerLabFinal.Interfaces;
 using GifTrackerLabFinal.Models;
+
 using System.Net.Http;
 using System.Text.Json;
+
 
 namespace GifTrackerLabFinal.Services
 {
     public class GifTrackerService : IGifTrackerService
     {
+
         private static readonly HttpClient _httpClient;
 
         static GifTrackerService()
@@ -27,6 +30,7 @@ namespace GifTrackerLabFinal.Services
     new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
             return result;
+
         }
     }
 }
