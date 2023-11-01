@@ -3,6 +3,8 @@ using GifTrackerLabFinal.Models;
 
 using System.Net.Http;
 using System.Text.Json;
+using Newtonsoft.Json;
+using System.Text;
 
 
 namespace GifTrackerLabFinal.Services
@@ -19,6 +21,26 @@ namespace GifTrackerLabFinal.Services
                 BaseAddress = new Uri("https://localhost:7094")
             };
         }
+
+        public async Task<bool> CreateGif(GifTracker gif)
+        {
+            string apiEndpoint = "/Gifs";
+            var gifData = new
+            {
+
+                URL = gif.URL,
+                Name = gif.Name,
+                Rating = gif.Rating
+            };
+
+            string jsonGifData = JsonConvert.SerializeObject(gifData);
+            HttpContent content = new StringContent(jsonGifData, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync(apiEndpoint, content);
+
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<List<GifTracker>> GetGif()
         {
             string apiEndpoint = "/Gifs";
@@ -26,11 +48,13 @@ namespace GifTrackerLabFinal.Services
             response.EnsureSuccessStatusCode();
             var gifs = await response.Content.ReadAsStringAsync();
            
-            var result = JsonSerializer.Deserialize<List<GifTracker>>(gifs,
+            var result = System.Text.Json.JsonSerializer.Deserialize<List<GifTracker>>(gifs,
     new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
             return result;
 
         }
+
+        
     }
 }

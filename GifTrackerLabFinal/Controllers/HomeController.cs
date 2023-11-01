@@ -3,6 +3,7 @@ using GifTrackerLabFinal.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+
 namespace GifTrackerLabFinal.Controllers
 {
     public class HomeController : Controller
@@ -27,6 +28,24 @@ namespace GifTrackerLabFinal.Controllers
             return View(gifTrackerList);
             
         }
+        public async Task<IActionResult> ToCreateGif()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateGif(GifTracker gif )
+        {
+            if(ModelState.IsValid)
+            {
+                await _gifTrackerService.CreateGif(gif);
+
+                return RedirectToAction("Index");
+            }
+
+            return View(gif);
+        }
+           
+
 
         public IActionResult Privacy()
         {
