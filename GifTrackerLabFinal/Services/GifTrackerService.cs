@@ -19,15 +19,15 @@ namespace GifTrackerLabFinal.Services
             };
         }
 
-        public async Task<bool> CreateGif(string URL, string Name, int Rating)
+        public async Task<bool> CreateGif(GifTracker gif)
         {
             string apiEndpoint = "/Gifs";
             var gifData = new
             {
 
-                URL = URL,
-                Name = Name,
-                Rating = Rating
+                URL = gif.URL,
+                Name = gif.Name,
+                Rating = gif.Rating
             };
 
             string jsonGifData = JsonConvert.SerializeObject(gifData);
